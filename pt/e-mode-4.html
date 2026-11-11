@@ -394,18 +394,11 @@
       selA.value = a; selB.value = b;
       let hay = false;
       tb.querySelectorAll('.cf-panel').forEach(p => { const on = p.dataset.par === key; p.hidden = !on; hay ||= on; });
-      tb.querySelectorAll('[data-par]').forEach(e => { if (!e.classList.contains('cf-panel')) e.classList.toggle('sel', e.dataset.par === key); });
       msg.hidden = hay; msg.textContent = a === b ? tb.dataset.mismo : tb.dataset.sin;
       if (scroll) tb.querySelector('.tb-detalle').scrollIntoView({ behavior: 'smooth', block: 'start' });
     };
-    tb.addEventListener('click', e => {
-      const btn = e.target.closest('button[data-par]');
-      if (!btn) return;
-      const [a, b] = btn.dataset.par.split('-');
-      mostrar(a, b, matchMedia('(max-width: 860px)').matches);
-    });
     [selA, selB].forEach(s => s.addEventListener('change', () => mostrar(selA.value, selB.value, false)));
-    const primero = tb.querySelector('.celda.ok').dataset.par.split('-');
+    const primero = tb.dataset.inicial.split('-');
     mostrar(primero[0], primero[1], false);
   });
 </script>
